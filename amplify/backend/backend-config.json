@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "sptestingapp540455c8": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
