@@ -17,7 +17,6 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-
 class Lights extends React.Component{
     constructor(props) {
         super(props);
@@ -43,33 +42,32 @@ class Lights extends React.Component{
       }
 	  
 	  publishTopic = () => {
-    console.log('Publishing...');
-	PubSub.publish('mydorm-light-iot-policy', {"Lights Status":"here","Door Status":"we","Window Status":"go"});
-  }
-
+		console.log('Publishing...');
+		PubSub.publish('mydorm-light-iot-policy', {"Lights":"here","Door":"we","Window":"go"});
+	  }
+	  
     render(){
         const { lightMsg } = this.state;
         let lightData = lightMsg[this.props.name];
 
         return(
-            <div className="Lights">
+            <div className="Light">
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>Turn {this.props.name} On</Card.Title>
                         <Card.Text> 
-							<button onClick={this.publishTopic}>publish to topic</button>
+							<button onClick={this.publishTopic}>Turn Lights On</button>
                         </Card.Text>
                     </Card.Body>
                 </Card>
 				<Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
-                        <Card.Text> 							
-							    { lightData }
+                        <Card.Text> 
+                            { lightData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
-
             </div>
         )
     }
