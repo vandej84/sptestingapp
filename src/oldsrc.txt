@@ -16,11 +16,34 @@ Amplify.configure(awsconfig);
 
 
 class App extends Component {
+  subscribe = () => {
+    PubSub.subscribe('mydorm-light-iot-policy').subscribe({
+      next: data => console.log('Message received from AWS:', data),
+      error: error => console.error('Error', error),
+      close: () => console.log('Done'),
+    });	
+    console.log('Attempting subscribe...');
+  }
 
   componentDidMount = async() => {
     Auth.currentCredentials().then((info) => {
       console.log('Identity id:', info._identityId);
     });
+    Amplify.addPluggable(new AWSIoTProvider({
+	 aws_pubsub_region: 'us-east-1',
+	 aws_pubsub_endpoint: 'wss://afz62ntog0e2g-ats.iot.us-east-1.amazonaws.com/mqtt',
+	}));
+    this.subscribe();
+  }
+
+  publishTopic = () => {
+    console.log('Publishing...');
+	PubSub.publish('mydorm-light-iot-policy', {"Lights Status":"here","Door Status":"we","Window Status":"go"});
+  }
+
+  logOut = () => { 
+    console.log('Logging out...');
+    Auth.signOut();
   }
 
   render() {
@@ -113,16 +136,18 @@ class App extends Component {
 		<div class="statuses">
 			<div class="row">
 				<div class="lights col">
-					<Col md="auto"> <Lights name="Lights"/> </Col>
+					<Col md="auto"> <Lights name="Lights Status"/> </Col>
 				</div>
 				<div class="door col">
-					<Col md="auto"> <Lights name="Door"/> </Col>
+					<Col md="auto"> <Lights name="Door Status"/> </Col>
 				</div>
 				<div class="window col">
-					<Col md="auto"> <Lights name="Window"/> </Col>
+					<Col md="auto"> <Lights name="Window Status"/> </Col>
 				</div>
 			</div>
 		</div>
+		<button onClick={this.publishTopic}>publish to topic</button>
+		<button onClick={this.subscribe}>subscribe</button>
 		</div>
 	</div>
 </div>

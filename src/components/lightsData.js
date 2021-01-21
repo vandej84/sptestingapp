@@ -17,11 +17,12 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-class Sensors extends React.Component{
+
+class Lights extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          sensorMsg: '{"null": 0}'
+          lightMsg: '{"null": 0}'
         };
     }
 
@@ -30,7 +31,7 @@ class Sensors extends React.Component{
           next: data => {
             try{
 				console.log(data)
-              this.setState({ sensorMsg: data.value });
+              this.setState({ lightMsg: data.value });
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
@@ -40,18 +41,31 @@ class Sensors extends React.Component{
           close: () => console.log('Done'),
         });
       }
+	  
+	  publishTopic = () => {
+    console.log('Publishing...');
+	PubSub.publish('mydorm-light-iot-policy', {"Lights Status":"here","Door Status":"we","Window Status":"go"});
+  }
 
     render(){
-        const { sensorMsg } = this.state;
-        let sensorData = sensorMsg[this.props.name];
+        const { lightMsg } = this.state;
+        let lightData = lightMsg[this.props.name];
 
         return(
-            <div className="Sensor">
+            <div className="Lights">
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
-                        <Card.Title>{this.props.name}</Card.Title>
+                        <Card.Title>Turn {this.props.name} On</Card.Title>
                         <Card.Text> 
-                            { sensorData } { this.props.unit }
+							<button onClick={this.publishTopic}>publish to topic</button>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+				<Card style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{this.props.name} Status</Card.Title>
+                        <Card.Text> 							
+							    { lightData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -61,4 +75,4 @@ class Sensors extends React.Component{
     }
 }
 
-export default Sensors;
+export default Lights;
