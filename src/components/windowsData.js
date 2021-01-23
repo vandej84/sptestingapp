@@ -17,20 +17,20 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-class Lights extends React.Component{
+class Windows extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          lightMsg: '{"null": 0}'
+          windowMsg: '{"null": 0}'
         };
     }
 
     componentDidMount(){
-        PubSub.subscribe('mydorm-light-iot-policy').subscribe({
+        PubSub.subscribe('mydorm-window-iot-policy').subscribe({
           next: data => {
             try{
 				console.log(data)
-              this.setState({ lightMsg: data.value });
+              this.setState({ windowMsg: data.value });
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
@@ -41,29 +41,29 @@ class Lights extends React.Component{
         });
       }
 	  
-	  publishLightsOn = () => {
+	  publishOpenWindow = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-light-iot-policy', {"Lights":"On"});
+		PubSub.publish('mydorm-window-iot-policy', {"Window":"Open"});
 	  }
-	  publishLightsOff = () => {
+	  publishCloseWindow = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-light-iot-policy', {"Lights":"Off"});
+		PubSub.publish('mydorm-window-iot-policy', {"Window":"Closed"});
 	  }
 	  
     render(){
-        const { lightMsg } = this.state;
-        let lightData = lightMsg[this.props.name];
+        const { windowMsg } = this.state;
+        let windowData = windowMsg[this.props.name];
 
         return(
-            <div className="Light">
+            <div className="Window">
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
                         <Card.Text> 
-							<button onClick={this.publishLightsOn}>Turn Lights On</button>
+							<button onClick={this.publishOpenWindow}>Open Window</button>
 							<br/>
 							<br/>
-							<button onClick={this.publishLightsOff}>Turn Lights Off</button>
+							<button onClick={this.publishCloseWindow}>Close Window</button>
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -71,7 +71,7 @@ class Lights extends React.Component{
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 
-                            { lightData }
+                            { windowData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -80,4 +80,4 @@ class Lights extends React.Component{
     }
 }
 
-export default Lights;
+export default Windows;

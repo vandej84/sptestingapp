@@ -17,20 +17,20 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-class Lights extends React.Component{
+class Doors extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          lightMsg: '{"null": 0}'
+          doorMsg: '{"null": 0}'
         };
     }
 
     componentDidMount(){
-        PubSub.subscribe('mydorm-light-iot-policy').subscribe({
+        PubSub.subscribe('mydorm-door-iot-policy').subscribe({
           next: data => {
             try{
 				console.log(data)
-              this.setState({ lightMsg: data.value });
+              this.setState({ doorMsg: data.value });
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
@@ -41,29 +41,29 @@ class Lights extends React.Component{
         });
       }
 	  
-	  publishLightsOn = () => {
+	  publishOpenDoor = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-light-iot-policy', {"Lights":"On"});
+		PubSub.publish('mydorm-door-iot-policy', {"Door":"Unlocked"});
 	  }
-	  publishLightsOff = () => {
+	  publishCloseDoor = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-light-iot-policy', {"Lights":"Off"});
+		PubSub.publish('mydorm-door-iot-policy', {"Door":"Locked"});
 	  }
 	  
     render(){
-        const { lightMsg } = this.state;
-        let lightData = lightMsg[this.props.name];
+        const { doorMsg } = this.state;
+        let doorData = doorMsg[this.props.name];
 
         return(
-            <div className="Light">
+            <div className="Door">
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
                         <Card.Text> 
-							<button onClick={this.publishLightsOn}>Turn Lights On</button>
+							<button onClick={this.publishOpenDoor}>Unlock Door</button>
 							<br/>
 							<br/>
-							<button onClick={this.publishLightsOff}>Turn Lights Off</button>
+							<button onClick={this.publishCloseDoor}>Lock Door</button>
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -71,7 +71,7 @@ class Lights extends React.Component{
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 
-                            { lightData }
+                            { doorData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -80,4 +80,4 @@ class Lights extends React.Component{
     }
 }
 
-export default Lights;
+export default Doors;

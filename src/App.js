@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import './App.css';
-import Lights from './components/lightsData';
-import Col from 'react-bootstrap/Col'
-import Amplify, { PubSub, Auth } from 'aws-amplify';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
-import { withAuthenticator } from 'aws-amplify-react';
-import awsconfig from './aws-exports';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
+
+import Lights from './components/lightsData';
+import Doors from './components/doorsData';
+import Windows from './components/windowsData';
+
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-native';
+import '@aws-amplify/ui/dist/style.css';
+
+import { Auth } from 'aws-amplify';
 
 /**
  * Put in your values from cognito created by cloudformation template
  */
 
 Amplify.configure(awsconfig);
+
+Auth.currentCredentials().then(creds => console.log(creds));
+
 
 class App extends Component {
 
@@ -38,11 +50,10 @@ class App extends Component {
 				</div>
 				<nav class="sort-pages modify-pages" id="navigation">
 					<h1>
-						<span>Navigation</span>
+					<span>Navigation</span>
 					</h1>
 					<div class="navigation-gradient">
 					</div>
-
 					<div class="search">
 						<form action="https://myfsu.ferris.edu/web/home-community/1?p_p_auth=zfv5HZO0&amp;p_p_id=77&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;_77_struts_action=%2Fjournal_content_search%2Fsearch" class="aui-form" method="post" name="_77_fm" onSubmit="submitForm(this); return false;">
 							<span class="aui-field aui-field-text aui-field-inline lfr-search-keywords">
@@ -61,6 +72,7 @@ class App extends Component {
 							</span>
 						</form>
 					</div>
+
 
 					<ul>
 						<li class="selected">
@@ -94,10 +106,10 @@ class App extends Component {
 						<Col md="auto"> <Lights name="Lights"/> </Col>
 					</div>
 					<div class="door col">
-						<Col md="auto"> <Lights name="Door"/> </Col>
+						<Col md="auto"> <Doors name="Door"/> </Col>
 					</div>
 					<div class="window col">
-						<Col md="auto"> <Lights name="Window"/> </Col>
+						<Col md="auto"> <Windows name="Window"/> </Col>
 					</div>
 				</div>
 			</div>
@@ -110,7 +122,7 @@ class App extends Component {
 
 
 // Uncomment to use WITHOUT auth
-export default App;
+//export default App;
 
 // Uncomment to use auth
-// export default withAuthenticator(App); 
+export default withAuthenticator(App, true); 

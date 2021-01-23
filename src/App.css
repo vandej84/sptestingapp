@@ -73,6 +73,13 @@ header{
   color: #000000;
   outline: 0; 
 }
+
+#navigation .search {
+	float: right;
+	margin-top: -33px; 
+	z-index: 2
+}
+	
 .content{
   font-size:18px;
   text-align:center;
