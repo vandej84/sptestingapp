@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col'
 import Lights from './components/lightsData';
 import Doors from './components/doorsData';
 import Windows from './components/windowsData';
+import "./components/cognitoLayout.css"
 
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -23,7 +24,6 @@ import { Auth } from 'aws-amplify';
 
 Amplify.configure(awsconfig);
 
-Auth.currentCredentials().then(creds => console.log(creds));
 
 
 class App extends Component {
@@ -32,7 +32,12 @@ class App extends Component {
     Auth.currentCredentials().then((info) => {
       console.log('Identity id:', info._identityId);
     });
+	
+	Auth.currentCredentials().then(creds => console.log(creds));
+
   }
+  
+  
 
   render() {
     return (
