@@ -49,8 +49,8 @@ header{
 #navigation li {
   position: relative;
   vertical-align: top;
-  border-right: solid 1px #CCC; 
-  border-left: solid 1px #CCC; 
+  border-right: solid 2px #CCC; 
+  border-left: solid 3px #CCC; 
 }
 
 #navigation a {
@@ -111,7 +111,7 @@ a.button{
   display:flex;
 }
 .col {
-  flex-basis:33.3%; /* this may be key to equalizing your columns - give the chidren a width, since the default is just to smash them all together. using a percentage makes it flexible/responsive to the screen size too */
+  flex-basis:25%; /* this may be key to equalizing your columns - give the chidren a width, since the default is just to smash them all together. using a percentage makes it flexible/responsive to the screen size too */
   text-align:center;
   display:flex; /* gets a little messier, but an element can be both a flex child, and a flex parent */
   flex-direction:column;

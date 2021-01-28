@@ -17,20 +17,20 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-class Windows extends React.Component{
+class NetStatus extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          windowMsg: '{"null": 0}'
+          netStatusMsg: '{"null": 0}'
         };
     }
 
     componentDidMount(){
-        PubSub.subscribe('mydorm-window-iot-policy').subscribe({
+        PubSub.subscribe('mydorm-networkstatus-iot-policy').subscribe({
           next: data => {
             try{
 				console.log(data)
-              this.setState({ windowMsg: data.value });
+              this.setState({ netStatusMsg: data.value });
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
@@ -41,39 +41,18 @@ class Windows extends React.Component{
         });
       }
 	  
-	  publishOpenWindow = () => {
-		console.log('Publishing...');
-		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
-		PubSub.publish('mydorm-window-iot-policy', {"Window":"Open"});
-	  }
-	  publishCloseWindow = () => {
-		console.log('Publishing...');
-		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
-		PubSub.publish('mydorm-window-iot-policy', {"Window":"Closed"});
-	  }
 	  
     render(){
-        const { windowMsg } = this.state;
-        let windowData = windowMsg[this.props.name];
+        const { netStatusMsg } = this.state;
+        let netStatusData = netStatusMsg[this.props.name];
 
         return(
-            <div className="Window">
-                <Card style={{ width: '18rem' }}>
-                    <Card.Body>
-                        <Card.Title>{this.props.name}</Card.Title>
-                        <Card.Text> 
-							<button onClick={this.publishOpenWindow}>Open Window</button>
-							<br/>
-							<br/>
-							<button onClick={this.publishCloseWindow}>Close Window</button>
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+            <div className="NetStatus">
 				<Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 
-                            { windowData }
+                            { netStatusData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -82,4 +61,4 @@ class Windows extends React.Component{
     }
 }
 
-export default Windows;
+export default NetStatus;

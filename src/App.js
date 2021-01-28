@@ -9,6 +9,9 @@ import Col from 'react-bootstrap/Col'
 import Lights from './components/lightsData';
 import Doors from './components/doorsData';
 import Windows from './components/windowsData';
+import Heaters from './components/heatersData';
+import NetStatus from './components/networkStatusData';
+
 import "./components/cognitoLayout.css"
 
 import Amplify from 'aws-amplify';
@@ -24,8 +27,6 @@ import { Auth } from 'aws-amplify';
 
 Amplify.configure(awsconfig);
 
-
-
 class App extends Component {
 
   componentDidMount = async() => {
@@ -36,8 +37,7 @@ class App extends Component {
 	Auth.currentCredentials().then(creds => console.log(creds));
 
   }
-  
-  
+    
 
   render() {
     return (
@@ -95,6 +95,9 @@ class App extends Component {
 						<li>
 							<a href="https://myfsu.ferris.edu/web/home-community/new-evernt" ><span tabindex="0">Communities</span></a>
 						</li>
+						<li>
+							<a href="#"><span tabindex="0">MyDorm</span></a>
+						</li>
 					</ul>
 				</nav>
 			</header>
@@ -102,7 +105,7 @@ class App extends Component {
 		<div class="content">
 			<div class="info">
 				<h1>Ferris State University MyDorm</h1>
-				<p>Use the buttons below to control your dorm room's lights, heat, locks, and more.</p>
+				<p>Use the buttons below to control your dorm room's lights, door lock, window, and heater.</p>
 			</div>
 
 			<div class="statuses">
@@ -116,7 +119,16 @@ class App extends Component {
 					<div class="window col">
 						<Col md="auto"> <Windows name="Window"/> </Col>
 					</div>
+					<div class="heaters col">
+						<Col md="auto"> <Heaters name="Heater"/> </Col>
+					</div>
 				</div>
+				<div class="row">
+					<div class="networkstatus col">
+						<Col md="auto"> <NetStatus name="Network"/> </Col>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>

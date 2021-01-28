@@ -17,20 +17,20 @@ Amplify.addPluggable(new AWSIoTProvider({
 }));
 
 
-class Windows extends React.Component{
+class Heaters extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          windowMsg: '{"null": 0}'
+          heaterMsg: '{"null": 0}'
         };
     }
 
     componentDidMount(){
-        PubSub.subscribe('mydorm-window-iot-policy').subscribe({
+        PubSub.subscribe('mydorm-heater-iot-policy').subscribe({
           next: data => {
             try{
 				console.log(data)
-              this.setState({ windowMsg: data.value });
+              this.setState({ heaterMsg: data.value });
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
@@ -41,31 +41,31 @@ class Windows extends React.Component{
         });
       }
 	  
-	  publishOpenWindow = () => {
+	  publishHeaterOn = () => {
 		console.log('Publishing...');
 		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
-		PubSub.publish('mydorm-window-iot-policy', {"Window":"Open"});
+		PubSub.publish('mydorm-heater-iot-policy', {"Heater":"On"});
 	  }
-	  publishCloseWindow = () => {
+	  publishHeaterOff = () => {
 		console.log('Publishing...');
 		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
-		PubSub.publish('mydorm-window-iot-policy', {"Window":"Closed"});
+		PubSub.publish('mydorm-heater-iot-policy', {"Heater":"Off"});
 	  }
 	  
     render(){
-        const { windowMsg } = this.state;
-        let windowData = windowMsg[this.props.name];
+        const { heaterMsg } = this.state;
+        let heaterData = heaterMsg[this.props.name];
 
         return(
-            <div className="Window">
+            <div className="Heater">
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
                         <Card.Text> 
-							<button onClick={this.publishOpenWindow}>Open Window</button>
+							<button onClick={this.publishHeaterOn}>Turn Heater On</button>
 							<br/>
 							<br/>
-							<button onClick={this.publishCloseWindow}>Close Window</button>
+							<button onClick={this.publishHeaterOff}>Turn Heater Off</button>
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -73,7 +73,7 @@ class Windows extends React.Component{
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 
-                            { windowData }
+                            { heaterData }
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -82,4 +82,4 @@ class Windows extends React.Component{
     }
 }
 
-export default Windows;
+export default Heaters;

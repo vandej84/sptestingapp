@@ -43,10 +43,12 @@ class Lights extends React.Component{
 	  
 	  publishLightsOn = () => {
 		console.log('Publishing...');
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
 		PubSub.publish('mydorm-light-iot-policy', {"Lights":"On"});
 	  }
 	  publishLightsOff = () => {
 		console.log('Publishing...');
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
 		PubSub.publish('mydorm-light-iot-policy', {"Lights":"Off"});
 	  }
 	  
