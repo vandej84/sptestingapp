@@ -6,23 +6,17 @@ import awsconfig from './../aws-exports';
 import '@aws-amplify/ui/dist/style.css';
 
 import { PubSub, Auth } from 'aws-amplify';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 
 Amplify.configure(awsconfig);
 
 // Apply plugin with configuration
-Amplify.addPluggable(new AWSIoTProvider({
- aws_pubsub_region: 'us-east-1',
- aws_pubsub_endpoint: 'wss://afz62ntog0e2g-ats.iot.us-east-1.amazonaws.com/mqtt',
-}));
 
 
 class Heaters extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          heaterMsg: '{"null": 0}'
-        };
+			heaterMsg: '{"null": 0}', value: ''};
     }
 
     componentDidMount(){
@@ -52,28 +46,42 @@ class Heaters extends React.Component{
 		PubSub.publish('mydorm-heater-iot-policy', {"Heater":"Off"});
 	  }
 	  
+	  handleChange = e => {
+		console.log('it is doing something...');
+		this.setState({value: e.target.value});
+
+	  }
+	
+	  publishSetTemperature = e => {
+		const newHeaterVal =  this.state.value;
+		console.log('Heater Val: ' + this.state.value);
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
+		PubSub.publish('mydorm-heater-iot-policy', {"Heater":newHeaterVal})
+	  }
+	  
     render(){
         const { heaterMsg } = this.state;
         let heaterData = heaterMsg[this.props.name];
 
         return(
             <div className="Heater">
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '14rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
                         <Card.Text> 
-							<button onClick={this.publishHeaterOn}>Turn Heater On</button>
+							Desired Temperature:
+							<input type="text" size="5" value={this.state.value} onChange={this.handleChange} />
 							<br/>
 							<br/>
-							<button onClick={this.publishHeaterOff}>Turn Heater Off</button>
+							<button onClick={this.publishSetTemperature}>Set Temperature</button>
                         </Card.Text>
                     </Card.Body>
                 </Card>
-				<Card style={{ width: '18rem' }}>
+				<Card style={{ width: '14rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 
-                            { heaterData }
+                            { heaterData }°F
                         </Card.Text>
                     </Card.Body>
                 </Card>

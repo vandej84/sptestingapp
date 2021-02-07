@@ -6,15 +6,10 @@ import awsconfig from './../aws-exports';
 import '@aws-amplify/ui/dist/style.css';
 
 import { PubSub, Auth } from 'aws-amplify';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 
 Amplify.configure(awsconfig);
 
 // Apply plugin with configuration
-Amplify.addPluggable(new AWSIoTProvider({
- aws_pubsub_region: 'us-east-1',
- aws_pubsub_endpoint: 'wss://afz62ntog0e2g-ats.iot.us-east-1.amazonaws.com/mqtt',
-}));
 
 
 class Lights extends React.Component{
@@ -58,7 +53,7 @@ class Lights extends React.Component{
 
         return(
             <div className="Light">
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '14rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
                         <Card.Text> 
@@ -69,7 +64,7 @@ class Lights extends React.Component{
                         </Card.Text>
                     </Card.Body>
                 </Card>
-				<Card style={{ width: '18rem' }}>
+				<Card style={{ width: '14rem' }}>
                     <Card.Body>
                         <Card.Title>{this.props.name} Status</Card.Title>
                         <Card.Text> 

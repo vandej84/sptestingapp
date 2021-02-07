@@ -6,15 +6,10 @@ import awsconfig from './../aws-exports';
 import '@aws-amplify/ui/dist/style.css';
 
 import { PubSub, Auth } from 'aws-amplify';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 
 Amplify.configure(awsconfig);
 
 // Apply plugin with configuration
-Amplify.addPluggable(new AWSIoTProvider({
- aws_pubsub_region: 'us-east-1',
- aws_pubsub_endpoint: 'wss://afz62ntog0e2g-ats.iot.us-east-1.amazonaws.com/mqtt',
-}));
 
 
 class NetStatus extends React.Component{
