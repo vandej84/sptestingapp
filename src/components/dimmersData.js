@@ -54,7 +54,7 @@ class Dimmers extends React.Component{
 	
 	  handleNullChange = e => {
 		this.setState({dimmerValue: e.target.value});
-		console.log("Dimmer slider moved to " + e.target.value + ", no action taken");
+		console.log("Dimmer slider has moved to " + e.target.value + ", no action taken");
 		};
 
 	  componentWillUnmount() {
