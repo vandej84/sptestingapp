@@ -47,7 +47,7 @@ class Heaters extends React.Component{
 	  }
 	  
 	  handleChange = e => {
-		console.log('it is doing something...');
+		console.log('Heater value is changing; no action until publishSetTemperature is called');
 		this.setState({value: e.target.value});
 
 	  }

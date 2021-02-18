@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
 
+import "./components/cognitoLayout.css"
+import '@aws-amplify/ui/dist/style.css';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
@@ -11,15 +15,13 @@ import Doors from './components/doorsData';
 import Windows from './components/windowsData';
 import Heaters from './components/heatersData';
 import NetStatus from './components/networkStatusData';
-
-import "./components/cognitoLayout.css"
+import Dimmers from './components/dimmersData';
 
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-native';
-import '@aws-amplify/ui/dist/style.css';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 
+import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 
 import { Auth } from 'aws-amplify';
 
@@ -119,6 +121,7 @@ class App extends Component {
 				<div class="row">
 					<div class="lights col">
 						<Col md="auto"> <Lights name="Lights"/> </Col>
+						<Col md="auto"> <Dimmers name="Dimmer"/> </Col>
 					</div>
 					<div class="door col">
 						<Col md="auto"> <Doors name="Door"/> </Col>

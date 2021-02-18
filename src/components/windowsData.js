@@ -17,7 +17,7 @@ class Windows extends React.Component{
         super(props);
         this.state = {
           windowMsg: '{"null": 0}',
-		  sliderVal: "75"
+		  sliderVal: "50"
         };
     }
 
@@ -27,9 +27,11 @@ class Windows extends React.Component{
             try{
 				console.log(data)
 				this.setState({ windowMsg: data.value })
-								
 				const { windowMsg } = this.state;
+				console.log("Window this state is: " + this.state);
+				console.log("Window props name is: " + this.props.name);
 				let dataval = windowMsg[this.props.name];
+				console.log("Window dataval is: " + dataval);
                 this.updateSliderValue(dataval)
             }
             catch (error){
@@ -77,7 +79,7 @@ class Windows extends React.Component{
 		this.setState = (state,callback)=>{
 		return;
 		};
-	}
+		}
 	
     render(){
 		
