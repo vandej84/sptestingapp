@@ -22,6 +22,7 @@ class Dimmers extends React.Component{
     }
 
     componentDidMount(){
+		const oldDim = "0";
         PubSub.subscribe('mydorm-dimmer-iot-policy').subscribe({
           next: data => {
             try{
@@ -29,7 +30,16 @@ class Dimmers extends React.Component{
 				this.setState({ dimmerMsg: data.value })
 				const { dimmerMsg } = this.state;
 				let dataval = dimmerMsg[this.props.name];
-                this.updateDimmerValue(dataval)
+                this.updateDimmerValue(dataval);
+				console.log("DATAVAL IS " + dataval);
+				if (dataval > 0)
+				{
+					PubSub.publish('mydorm-light-iot-policy', {"Lights":"On"});
+				}
+				else if (dataval == 0)
+				{	
+					PubSub.publish('mydorm-light-iot-policy', {"Lights":"Off"});
+				}
             }
             catch (error){
               console.log("Error, are you sending the correct data?");
