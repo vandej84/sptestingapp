@@ -114,7 +114,7 @@ class App extends Component {
 		<div class="content">
 			<div class="info">
 				<h1>Ferris State University MyDorm</h1>
-				<p>Use the buttons below to control your dorm room's lights, door lock, window, and heater.</p>
+				<p>Use the functions below to control your dorm room's lights, door lock, window, and heater.</p>
 			</div>
 
 			<div class="statuses">
@@ -140,6 +140,8 @@ class App extends Component {
 				</div>
 				
 			</div>
+		<p>Ferris State University Computer Networks and Systems/Electrical Electronics Engineering Technology, Senior Projects 2021</p>
+		<p>Created by Jeremiah VanderKam, Jeffrey Rase, Elizabeth Silkovskiy, and Abdullah Albohassan.</p>
 		</div>
 	</div>
   );
