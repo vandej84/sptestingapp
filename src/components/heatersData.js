@@ -54,13 +54,13 @@ class Heaters extends React.Component{
 	
 	  publishSetTemperature = e => {
 		var newHeaterVal =  this.state.value;
-		if (newHeaterVal > 85)
+		if (newHeaterVal > 80)
 		{
-			newHeaterVal = 85;
+			newHeaterVal = 80;
 		}
-		else if (newHeaterVal < 25)
+		else if (newHeaterVal < 50)
 		{
-			newHeaterVal = 25;
+			newHeaterVal = 50;
 		}
 		console.log('Heater Val: ' + this.state.value);
 		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
