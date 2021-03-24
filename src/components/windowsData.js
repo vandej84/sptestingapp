@@ -46,7 +46,7 @@ class Windows extends React.Component{
 	  
 	  publishOpenWindow = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
 		PubSub.publish('mydorm-window-iot-policy', {"Window":"Open"});
 	  }
 	  

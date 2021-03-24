@@ -37,7 +37,7 @@ class Heaters extends React.Component{
 	  
 	  publishHeaterOn = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
 		PubSub.publish('mydorm-heater-iot-policy', {"Heater":"On"});
 	  }
 	  publishHeaterOff = () => {

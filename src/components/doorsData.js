@@ -38,7 +38,7 @@ class Doors extends React.Component{
 	  
 	  publishOpenDoor = () => {
 		console.log('Publishing...');
-		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Online"});
+		PubSub.publish('mydorm-networkstatus-iot-policy', {"Network":"Offline"});
 		PubSub.publish('mydorm-door-iot-policy', {"Door":"Unlocked"});
 	  }
 	  publishCloseDoor = () => {
